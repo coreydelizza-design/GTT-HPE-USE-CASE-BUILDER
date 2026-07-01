@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTT + HPE — Live Conversation Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0d0c;--ink-2:#13191a;--paper:#f3f4f0;--paper-2:#e7e9e2;
+  --green:#27e07a;--green-deep:#0fa455;--green-ghost:#d4f5e2;--teal:#1ea7a0;
+  --line:#cdd0c7;--line-dark:#2a3230;--mut:#5e655f;--mut-light:#9aa39a;
+  --warn:#c0392b;--warn-ghost:#fbecea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:'IBM Plex Mono',monospace}
+
+/* ---------- STICKY CONTROL BAR ---------- */
+.bar{position:sticky;top:0;z-index:60;background:var(--ink);border-bottom:1px solid var(--line-dark);padding:0 clamp(12px,3vw,28px)}
+.bar-in{display:flex;align-items:center;gap:16px;height:56px;max-width:1240px;margin:0 auto;flex-wrap:nowrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.brand .plus{color:var(--green);font-weight:400;font-size:19px}
+.brand .hpe{font-weight:300;letter-spacing:.06em}
+.brand .tag{font-weight:400;color:var(--mut-light);font-size:13px}
+.vtoggle{display:flex;gap:4px;background:var(--ink-2);border:1px solid var(--line-dark);border-radius:100px;padding:4px}
+.vtoggle button{font-family:inherit;cursor:pointer;border:none;background:transparent;color:var(--mut-light);font-size:13px;font-weight:700;padding:7px 16px;border-radius:100px;transition:.15s;white-space:nowrap}
+.vtoggle button.on{background:var(--green);color:var(--ink)}
+.bar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.jump{display:flex;gap:2px}
+.jump a{color:var(--mut-light);text-decoration:none;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:7px 10px;border-radius:6px;transition:.15s;white-space:nowrap}
+.jump a:hover{color:#fff;background:var(--ink-2)}
+@media(max-width:920px){.jump{display:none}}
+.reset{font-family:inherit;cursor:pointer;background:transparent;border:1px solid var(--line-dark);color:var(--mut-light);font-size:12px;font-weight:600;padding:8px 14px;border-radius:100px;transition:.15s;white-space:nowrap}
+.reset:hover{border-color:var(--green);color:var(--green)}
+
+/* ---------- LAYOUT ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(12px,3vw,28px) 120px}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.board{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:16px}
+
+.card{background:#fff;border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.card-h{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1.5px solid var(--line)}
+.card-h .ic{width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--green);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;flex:none}
+.card-h h2{font-size:16px;font-weight:800;letter-spacing:-.01em;flex:1}
+.card-h .hint{font-size:11.5px;color:var(--mut);font-weight:500}
+.card-b{padding:14px 16px}
+
+/* provocation banner */
+.provo{background:var(--ink);color:#fff;border:none}
+.provo .card-b{padding:22px 22px}
+.provo .pk{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.provo p{font-size:clamp(17px,2.4vw,22px);font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.provo .say{margin-top:14px;font-size:12px;color:var(--mut-light);display:flex;align-items:center;gap:7px}
+.provo .say::before{content:"▶";font-size:9px;color:var(--green)}
+
+/* expandable rows (talk tracks, discovery, objections) */
+.exp{border:1.5px solid var(--line);border-radius:11px;margin-bottom:9px;overflow:hidden;transition:.15s;background:#fff}
+.exp:last-child{margin-bottom:0}
+.exp.open{border-color:var(--green-deep)}
+.exp-t{width:100%;text-align:left;font-family:inherit;cursor:pointer;background:#fff;border:none;padding:13px 15px;display:flex;align-items:center;gap:12px;transition:.15s}
+.exp-t:hover{background:var(--paper)}
+.exp.open .exp-t{background:var(--green-ghost)}
+.exp-t .caret{flex:none;width:18px;height:18px;color:var(--mut);transition:.2s;font-size:12px;display:grid;place-items:center}
+.exp.open .exp-t .caret{transform:rotate(90deg);color:var(--green-deep)}
+.exp-t .lbl{flex:1;font-size:14px;font-weight:600;letter-spacing:-.005em;color:var(--ink);line-height:1.35}
+.exp-t .lbl .qmark{color:var(--warn)}
+.exp-body{max-height:0;overflow:hidden;transition:max-height .22s ease}
+.exp.open .exp-body{max-height:420px}
+.exp-body .inner{padding:2px 16px 15px 45px;font-size:13.5px;line-height:1.55;color:var(--mut)}
+.exp-body .say-line{color:var(--ink);font-style:italic;border-left:2px solid var(--green);padding-left:12px;margin:4px 0}
+.exp-body .k{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);font-weight:600;margin:10px 0 4px;display:block}
+
+/* objection specific */
+.exp-t .box{flex:none;width:19px;height:19px;border-radius:6px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;background:#fff;color:transparent;transition:.13s;cursor:pointer}
+.exp-t .box.boxon{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+.exp-t .box:hover{border-color:var(--green-deep)}
+.exp.obj .exp-t .lbl::before{content:"“";color:var(--line);font-weight:400}
+.exp.obj .exp-t .lbl::after{content:"”";color:var(--line);font-weight:400}
+
+/* capture chips (pains / what landed) */
+.cap-sub{font-size:12px;color:var(--mut);margin-bottom:12px;line-height:1.4}
+.chip{display:flex;gap:11px;align-items:flex-start;cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;transition:.13s;margin-bottom:8px}
+.chip:last-child{margin-bottom:0}
+.chip:hover{border-color:var(--green-deep)}
+.chip.on{border-color:var(--green-deep);background:var(--green-ghost)}
+.chip .box{flex:none;width:19px;height:19px;border-radius:6px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;margin-top:1px;background:#fff;transition:.13s}
+.chip.on .box{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+.chip .txt{font-size:13.5px;line-height:1.4;color:var(--ink)}
+
+/* discovery topic grouping */
+.topic{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:16px 0 8px;display:flex;align-items:center;gap:9px}
+.topic:first-child{margin-top:0}
+.topic::before{content:"";width:18px;height:2px;background:var(--line)}
+
+/* outcome quick-ref pills */
+.oref{display:flex;flex-wrap:wrap;gap:7px}
+.opill{font-size:12px;font-weight:600;background:var(--paper-2);border:1px solid var(--line);color:var(--ink);padding:7px 12px;border-radius:100px}
+.oref .ocat{width:100%;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-deep);font-weight:600;margin:10px 0 2px}
+.oref .ocat:first-child{margin-top:0}
+
+/* notes capture */
+.notes-area{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;resize:vertical;min-height:80px;line-height:1.5}
+.notes-area:focus{outline:none;border-color:var(--green-deep);box-shadow:0 0 0 3px var(--green-ghost)}
+
+/* ---------- CAPTURE TRAY ---------- */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--ink);color:#fff;border-top:1px solid var(--line-dark);transform:translateY(calc(100% - 52px));transition:transform .25s ease}
+.tray.up{transform:translateY(0)}
+.tray-handle{height:52px;display:flex;align-items:center;gap:14px;padding:0 clamp(14px,3vw,28px);cursor:pointer;max-width:1240px;margin:0 auto}
+.tray-handle .th-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.tray-handle .th-count{font-size:13px;color:var(--mut-light)}
+.tray-handle .th-count b{color:#fff;font-weight:700}
+.tray-handle .caret{margin-left:auto;transition:.2s;color:var(--mut-light);font-size:14px}
+.tray.up .tray-handle .caret{transform:rotate(180deg)}
+.tray-body{padding:0 clamp(14px,3vw,28px) 22px;max-width:1240px;margin:0 auto;max-height:46vh;overflow-y:auto}
+.tray-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:760px){.tray-cols{grid-template-columns:1fr}}
+.tray h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut-light);margin:14px 0 8px}
+.tray ul{list-style:none}
+.tray li{font-size:13.5px;color:#dfe3dc;padding:6px 0 6px 18px;position:relative;line-height:1.4;border-bottom:1px solid var(--line-dark)}
+.tray li::before{content:"✓";position:absolute;left:0;color:var(--green);font-size:12px}
+.tray .empty{font-size:13px;color:var(--mut);font-style:italic;padding:6px 0}
+.tray-actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.tbtn{font-family:inherit;cursor:pointer;border-radius:100px;font-size:13px;font-weight:700;padding:10px 18px;border:1.5px solid var(--line-dark);background:transparent;color:#fff;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.tbtn:hover{border-color:var(--green);color:var(--green)}
+.tbtn.green{background:var(--green);color:var(--ink);border-color:var(--green)}
+.tbtn.green:hover{color:var(--ink);transform:translateY(-1px)}
+.tray-note{font-size:11.5px;color:var(--mut);margin-top:12px;line-height:1.5}
+
+/* ---------- PRINT DOC (screen-hidden; print-only) ---------- */
+#print-doc{display:none}
+@media print{
+  @page{margin:14mm}
+  .bar,.tray,.wrap{display:none!important}
+  #print-doc{display:block!important}
+  body{background:#fff}
+  .pd-hero,.pd-quote{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pd-sec{break-inside:avoid}
+}
+#print-doc .pd-hero{background:var(--ink);color:#fff;padding:28px 30px;border-radius:14px}
+#print-doc .pd-brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;font-size:16px;margin-bottom:16px}
+#print-doc .pd-brand .plus{color:var(--green);font-weight:400;font-size:19px}
+#print-doc .pd-brand .hpe{font-weight:300;letter-spacing:.06em}
+#print-doc .pd-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+#print-doc .pd-hero h1{font-size:26px;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+#print-doc .pd-hero h1 em{color:var(--green);font-style:normal}
+#print-doc .pd-meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line-dark);border-radius:10px;overflow:hidden}
+#print-doc .pd-meta div{padding:11px 16px;border-right:1px solid var(--line-dark)}
+#print-doc .pd-meta div:last-child{border-right:none}
+#print-doc .pd-meta .k{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut-light);margin-bottom:4px}
+#print-doc .pd-meta .v{font-size:13px;font-weight:600;color:#fff}
+#print-doc .pd-body{padding:28px 4px 0}
+#print-doc .pd-sec{margin-bottom:26px}
+#print-doc .pd-sec-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+#print-doc .pd-sec-tag::before{content:"";width:22px;height:2px;background:var(--green-deep)}
+#print-doc .pd-list{list-style:none}
+#print-doc .pd-list li{font-size:14px;color:var(--ink);padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--paper-2);line-height:1.45}
+#print-doc .pd-list li:last-child{border-bottom:none}
+#print-doc .pd-list li::before{content:"✓";position:absolute;left:0;top:9px;color:var(--green-deep);font-weight:700;font-size:13px}
+#print-doc .pd-list.obj li::before{content:"“";color:var(--mut);top:6px}
+#print-doc .pd-empty{font-size:13.5px;color:var(--mut);font-style:italic}
+#print-doc .pd-notes{background:var(--green-ghost);border:1px solid var(--green);border-radius:11px;padding:18px 20px;font-size:14px;color:var(--ink);line-height:1.55;white-space:pre-wrap}
+#print-doc .pd-foot{border-top:1px solid var(--line);margin-top:6px;padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end}
+#print-doc .pd-foot .path{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+#print-doc .pd-foot .path span{color:var(--green-deep)}
+#print-doc .pd-foot .path .arr{color:var(--mut);margin:0 5px}
+#print-doc .pd-foot .fmeta{font-size:11px;color:var(--mut);text-align:right;line-height:1.6}
+
+@media print{.bar,.tray{display:none}.wrap{padding:0}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand">GTT <span class="plus">+</span> <span class="hpe">HPE</span> <span class="tag">Live Guide</span></div>
+    <div class="vtoggle">
+      <button data-v="qsr" class="on">QSR Retail</button>
+      <button data-v="mfg">Global Mfg</button>
+    </div>
+    <div class="bar-right">
+      <nav class="jump">
+        <a href="#c-open">Open</a>
+        <a href="#c-disco">Discovery</a>
+        <a href="#c-pain">Pains</a>
+        <a href="#c-obj">Objections</a>
+        <a href="#c-out">Outcomes</a>
+      </nav>
+      <button class="reset" id="reset">Reset call</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="board">
+    <div class="col">
+      <!-- PROVOCATION / OPENER -->
+      <div class="card provo" id="c-open">
+        <div class="card-b">
+          <div class="pk">The question that opens the room</div>
+          <p id="provo-text"></p>
+          <div class="say">Ask it, then stay quiet. Let them supply the number.</div>
+        </div>
+      </div>
+
+      <!-- DISCOVERY -->
+      <div class="card" id="c-disco">
+        <div class="card-h"><div class="ic">?</div><h2>Discovery</h2><span class="hint">tap to reveal · why it matters</span></div>
+        <div class="card-b" id="disco-list"></div>
+      </div>
+
+      <!-- OUTCOMES QUICK REF -->
+      <div class="card" id="c-out">
+        <div class="card-h"><div class="ic">→</div><h2>Outcomes to land</h2><span class="hint">the shift, in their terms</span></div>
+        <div class="card-b"><div class="oref" id="out-list"></div></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <!-- PAINS / TALK TRACKS + CAPTURE -->
+      <div class="card" id="c-pain">
+        <div class="card-h"><div class="ic">!</div><h2>Pains &amp; talk tracks</h2><span class="hint">tap ✓ to mark what landed</span></div>
+        <div class="card-b">
+          <div class="cap-sub">Expand for the talk track. Check the box when it resonates — checked items flow to your call summary.</div>
+          <div id="pain-list"></div>
+        </div>
+      </div>
+
+      <!-- OBJECTIONS -->
+      <div class="card" id="c-obj">
+        <div class="card-h"><div class="ic">↺</div><h2>Objection reopeners</h2><span class="hint">they say → you reopen</span></div>
+        <div class="card-b" id="obj-list"></div>
+      </div>
+
+      <!-- NOTES -->
+      <div class="card">
+        <div class="card-h"><div class="ic">✎</div><h2>Live notes</h2><span class="hint">compelling event, names, next step</span></div>
+        <div class="card-b"><textarea class="notes-area" id="notes" placeholder="e.g. Champion: VP IT. Compelling event: PCI reassessment Q3. Incumbent WAN expires in 8 mo. Next step: SE workshop."></textarea></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAPTURE TRAY -->
+<div class="tray" id="tray">
+  <div class="tray-handle" id="tray-handle">
+    <span class="th-k">Call summary</span>
+    <span class="th-count"><b id="tray-n">0</b> points landed</span>
+    <span class="caret">▲</span>
+  </div>
+  <div class="tray-body">
+    <div class="tray-cols">
+      <div>
+        <h4>Pains that landed</h4>
+        <ul id="tray-pains"><li class="empty" style="list-style:none">None checked yet — tap ✓ on a pain as it resonates.</li></ul>
+      </div>
+      <div>
+        <h4>Objections raised</h4>
+        <ul id="tray-objs"><li class="empty" style="list-style:none">None marked — expand an objection and tap "came up".</li></ul>
+        <h4>Notes</h4>
+        <ul id="tray-notes"><li class="empty" style="list-style:none">No notes yet.</li></ul>
+      </div>
+    </div>
+    <div class="tray-actions">
+      <button class="tbtn green" id="copy-summary">Copy summary</button>
+      <button class="tbtn" id="print-summary">Print / PDF</button>
+    </div>
+    <div class="tray-note">Everything here is in-memory only and resets when you close or reset the call — nothing is saved or sent. Use "Copy summary" to paste into your CRM or the Profile Builder.</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT — mirrors the two qualified use cases (guide-shaped)
+   ============================================================ */
+const DATA = {
+  qsr: {
+    provocation: "When one register gets breached, how much of the business goes with it?",
+    discovery: [
+      {topic:"Footprint & IT", q:"How many stores, and how much IT presence does each one actually have?", why:"Thin/zero on-site IT is the wedge — it makes managed + zero-touch the obvious answer."},
+      {topic:"Footprint & IT", q:"How long does it take to turn up a new location today?", why:"Weeks + truck rolls → zero-touch SD-WAN is a hard, quantifiable win."},
+      {topic:"Security & PCI", q:"Is guest Wi-Fi, POS, and IoT on one flat network, or segmented?", why:"Flat network = full-store PCI scope. Segmentation shrinking scope is the headline."},
+      {topic:"Security & PCI", q:"When's your next PCI assessment — and how did the last one go?", why:"An upcoming or failed audit is the compelling event."},
+      {topic:"Estate", q:"How do franchise vs. corporate sites differ in gear and policy?", why:"Inconsistency across the estate is the pain one console solves."},
+      {topic:"Performance", q:"Where does store traffic break out to your ordering/loyalty SaaS?", why:"Backhaul = slow apps. Local breakout is an easy performance story."}
+    ],
+    pains: [
+      {p:"Guest Wi-Fi shares the flat network with POS — one tablet exposes card data.", say:"So today, is there anything actually stopping a compromised guest device from reaching the POS VLAN? For most brands the honest answer is no — and that's the whole store in PCI scope."},
+      {p:"PCI-DSS scope is the entire store because nothing is segmented.", say:"When we segment POS from guest from kitchen IoT, your audit scope collapses to just the payment path. That's less to assess, less to fail on, and less to remediate every year."},
+      {p:"A new location takes weeks; a router swap means a truck roll.", say:"Zero-touch means the appliance ships to the store, someone plugs it in, and it self-configures from the cloud. Turn-up goes from weeks to hours, and most changes never need a truck."},
+      {p:"SaaS apps (ordering, loyalty, labor) are slow — traffic backhauls.", say:"Instead of hauling every order back to a data center, each store breaks out locally to the cloud. Ordering and loyalty just get faster, everywhere at once."},
+      {p:"Franchise vs. corporate run different gear, no consistent policy.", say:"One console pushes the same policy to every site — corporate and franchise alike — so you finally see and control the whole estate from one place."}
+    ],
+    objections: [
+      {o:"We already have SASE.", re:"Most who say that have SD-WAN from one vendor and security from another.", ask:"When your network and security teams work an incident, are they on the same screen — or reconciling two?"},
+      {o:"A cutover would be too disruptive.", re:"That's why it's phased — we assess before anything moves.", ask:"What would it be worth to see your highest-risk stores mapped before a single change is made?"},
+      {o:"Why not just buy the software direct?", re:"You could — then you own the backbone, the carriers, and the remediation.", ask:"Who on your team wants to run a global store network under the security platform, and at what cost?"}
+    ],
+    outcomes: [
+      {c:"Security", items:["PCI scope → payment path","Guest / IoT / POS segmented","Audit-ready per store"]},
+      {c:"Operational", items:["Zero-touch turn-up","One console, all sites","Franchise + corporate unified"]},
+      {c:"Performance", items:["Local SaaS breakout","Faster ordering + loyalty","Wireless failover"]},
+      {c:"Financial", items:["Fewer truck rolls","Fewer vendors","Lower TCO / site"]}
+    ]
+  },
+  mfg: {
+    provocation: "If a phished laptop can reach the plant floor, what stops the line from stopping?",
+    discovery: [
+      {topic:"IT / OT", q:"Do IT and OT share infrastructure, or are they segmented today?", why:"Shared infra = open lateral movement to production. Hard segmentation is the core win."},
+      {topic:"IT / OT", q:"How many legacy machines can't run a security agent?", why:"Agentless device intelligence is the answer to the OT you can't touch."},
+      {topic:"Access", q:"How do integrators and equipment vendors get remote access now?", why:"Whole-network VPNs → least-privilege ZTNA to one asset is a clean, urgent fix."},
+      {topic:"Global", q:"How many carriers and compliance regimes are you managing across countries?", why:"Patchwork carriers + per-country rules = the single-backbone, central-policy story."},
+      {topic:"Cloud", q:"What plant-floor data is feeding cloud analytics or AI quality systems?", why:"That data path is the new attack surface — and the reason connectivity has to be consistent."},
+      {topic:"Stakes", q:"What does an hour of unplanned downtime actually cost a plant?", why:"Downtime cost makes MTTR a board number and justifies the whole program."}
+    ],
+    pains: [
+      {p:"OT and IT share infrastructure — a phished laptop can halt production.", say:"Right now, if someone phishes an office laptop, is there anything that stops them reaching a PLC? Hard IT/OT segmentation is what turns 'halt production' into 'contained to the office.'"},
+      {p:"Legacy machines can't run agents, yet need cloud connectivity.", say:"We fingerprint those machines with agentless device intelligence and quarantine them into micro-segments — so they can send telemetry without becoming the way in."},
+      {p:"Each country has its own compliance regime and local carrier.", say:"One Tier 1 backbone across your footprint, with per-country policy and data-residency enforced centrally — instead of a different carrier and ruleset in every market."},
+      {p:"Third parties get VPNs into the whole network.", say:"ZTNA gives an integrator access to exactly the one machine they're servicing — not a tunnel into everything. That's the access problem most manufacturers underestimate."},
+      {p:"Unplanned downtime costs five-to-seven figures per hour.", say:"When MTTR is measured in lost production, converging the stack and shrinking the attack surface isn't a security line item — it's uptime insurance."}
+    ],
+    objections: [
+      {o:"We already have SASE.", re:"Most 'SASE' here is SD-WAN from one vendor, security from another, and OT bolted on the side.", ask:"Does your current setup actually segment OT from IT — or just secure the office edge?"},
+      {o:"A cutover would be too disruptive.", re:"That's why it's phased — assessment first, highest-risk sites mapped before anything moves.", ask:"What's the cost of one unplanned outage versus a phased, revertable rollout?"},
+      {o:"Why not just buy the software direct?", re:"Then you own the global backbone, the carriers, and the remediation across every plant.", ask:"Who runs that network under the platform, in every country, at 3am?"}
+    ],
+    outcomes: [
+      {c:"Security", items:["IT/OT lateral blocked","Legacy OT quarantined","Per-country compliance"]},
+      {c:"Operational", items:["One carrier, all plants","NetOps + SecOps aligned","Vendor access without VPN"]},
+      {c:"Performance", items:["Prioritized OT + ERP","Low-latency analytics","Higher SLA consistency"]},
+      {c:"Financial", items:["Less unplanned downtime","Lower recovery cost","Consolidated TCO"]}
+    ]
+  }
+};
+
+const VNAME = {qsr:"Quick-Serve Retail", mfg:"Global Manufacturing"};
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let vertical='qsr';
+const landed={pains:new Set(), objs:new Set()};
+
+function render(){
+  const d=DATA[vertical];
+  landed.pains.clear(); landed.objs.clear();
+  updateTray();
+
+  $('#provo-text').textContent=d.provocation;
+
+  // discovery grouped by topic
+  let lastTopic=null, dh='';
+  d.discovery.forEach((item,i)=>{
+    if(item.topic!==lastTopic){ dh+=`<div class="topic">${esc(item.topic)}</div>`; lastTopic=item.topic; }
+    dh+=`<div class="exp" data-exp>
+      <button class="exp-t"><span class="caret">▶</span><span class="lbl">${esc(item.q)}</span></button>
+      <div class="exp-body"><div class="inner"><span class="k">Why it matters</span>${esc(item.why)}</div></div>
+    </div>`;
+  });
+  $('#disco-list').innerHTML=dh;
+
+  // pains with talk tracks + capture checkbox
+  let ph='';
+  d.pains.forEach((item,i)=>{
+    ph+=`<div class="exp" data-exp data-pain="${i}">
+      <button class="exp-t">
+        <span class="box" data-cap="${i}" role="checkbox" aria-checked="false">✓</span>
+        <span class="caret">▶</span>
+        <span class="lbl">${esc(item.p)}</span>
+      </button>
+      <div class="exp-body"><div class="inner"><span class="k">Talk track</span><div class="say-line">${esc(item.say)}</div></div></div>
+    </div>`;
+  });
+  $('#pain-list').innerHTML=ph;
+  // convert pain boxes to standalone chips visually handled via .box; wire below
+
+  // objections
+  let oh='';
+  d.objections.forEach((item,i)=>{
+    oh+=`<div class="exp obj" data-exp data-obj="${i}">
+      <button class="exp-t"><span class="caret">▶</span><span class="lbl">${esc(item.o)}</span></button>
+      <div class="exp-body"><div class="inner">
+        <span class="k">Reframe</span>${esc(item.re)}
+        <span class="k">Reopen with</span><div class="say-line">${esc(item.ask)}</div>
+        <label class="chip" data-objcap="${i}" style="margin-top:12px"><span class="box">✓</span><span class="txt">Mark this objection as raised</span></label>
+      </div></div>
+    </div>`;
+  });
+  $('#obj-list').innerHTML=oh;
+
+  // outcomes
+  let ol='';
+  d.outcomes.forEach(o=>{
+    ol+=`<div class="ocat">${esc(o.c)}</div>`;
+    o.items.forEach(i=> ol+=`<span class="opill">${esc(i)}</span>`);
+  });
+  $('#out-list').innerHTML=ol;
+
+  wireExpanders();
+}
+
+function wireExpanders(){
+  $$('[data-exp] .exp-t').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      if(e.target.closest('[data-cap]')) return;
+      btn.closest('.exp').classList.toggle('open');
+    });
+  });
+  $$('[data-cap]').forEach(box=>{
+    box.addEventListener('click',e=>{
+      e.stopPropagation();
+      const i=+box.dataset.cap;
+      if(landed.pains.has(i)){ landed.pains.delete(i); box.setAttribute('aria-checked','false'); box.classList.remove('boxon'); }
+      else { landed.pains.add(i); box.setAttribute('aria-checked','true'); box.classList.add('boxon'); }
+      updateTray();
+    });
+  });
+  $$('[data-objcap]').forEach(chip=>{
+    chip.addEventListener('click',e=>{
+      e.stopPropagation();
+      const i=+chip.dataset.objcap;
+      const on=chip.classList.toggle('on');
+      if(on) landed.objs.add(i); else landed.objs.delete(i);
+      updateTray();
+    });
+  });
+}
+
+function updateTray(){
+  const d=DATA[vertical];
+  const n=landed.pains.size+landed.objs.size;
+  $('#tray-n').textContent=n;
+  // pains
+  if(landed.pains.size){
+    $('#tray-pains').innerHTML=[...landed.pains].sort((a,b)=>a-b).map(i=>`<li>${esc(d.pains[i].p)}</li>`).join('');
+  } else {
+    $('#tray-pains').innerHTML=`<li class="empty" style="list-style:none">None checked yet — tap ✓ on a pain as it resonates.</li>`;
+  }
+  // objections
+  if(landed.objs.size){
+    $('#tray-objs').innerHTML=[...landed.objs].sort((a,b)=>a-b).map(i=>`<li>${esc(d.objections[i].o)}</li>`).join('');
+  } else {
+    $('#tray-objs').innerHTML=`<li class="empty" style="list-style:none">None marked — expand an objection and tap "came up".</li>`;
+  }
+  // notes
+  const nv=$('#notes').value.trim();
+  $('#tray-notes').innerHTML = nv
+    ? `<li>${esc(nv)}</li>`
+    : `<li class="empty" style="list-style:none">No notes yet.</li>`;
+}
+
+/* vertical toggle */
+$$('.vtoggle button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    $$('.vtoggle button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    vertical=b.dataset.v;
+    render();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* notes → tray live */
+$('#notes').addEventListener('input',updateTray);
+
+/* tray open/close */
+$('#tray-handle').addEventListener('click',()=> $('#tray').classList.toggle('up'));
+
+/* reset call */
+$('#reset').addEventListener('click',()=>{
+  if(!confirm('Reset this call? Checked pains, objections, and notes will be cleared.')) return;
+  $('#notes').value='';
+  render();
+  $('#tray').classList.remove('up');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* build a plain-text summary */
+function summaryText(){
+  const d=DATA[vertical];
+  const date=new Date().toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  let t=`GTT + HPE — Call Summary\nVertical: ${VNAME[vertical]}\n${date}\n\n`;
+  t+=`PAINS THAT LANDED\n`;
+  t+= landed.pains.size ? [...landed.pains].sort((a,b)=>a-b).map(i=>`  - ${d.pains[i].p}`).join('\n') : '  (none marked)';
+  t+=`\n\nOBJECTIONS RAISED\n`;
+  t+= landed.objs.size ? [...landed.objs].sort((a,b)=>a-b).map(i=>`  - ${d.objections[i].o}`).join('\n') : '  (none marked)';
+  const nv=$('#notes').value.trim();
+  t+=`\n\nNOTES\n${nv ? '  '+nv.replace(/\n/g,'\n  ') : '  (none)'}\n`;
+  return t;
+}
+
+/* copy summary */
+$('#copy-summary').addEventListener('click',()=>{
+  const txt=summaryText();
+  const done=()=>{ const b=$('#copy-summary'); const o=b.textContent; b.textContent='Copied ✓'; setTimeout(()=>b.textContent=o,1400); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done));
+  } else fallbackCopy(txt,done);
+});
+function fallbackCopy(txt,done){
+  const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ alert('Copy not supported — select and copy manually.'); }
+  document.body.removeChild(ta);
+}
+
+/* print summary */
+$('#print-summary').addEventListener('click',()=>{
+  buildPrintDoc();
+  window.print();
+});
+
+function buildPrintDoc(){
+  const d=DATA[vertical];
+  const date=new Date().toLocaleString('en-US',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  const painsHtml = landed.pains.size
+    ? `<ul class="pd-list">${[...landed.pains].sort((a,b)=>a-b).map(i=>`<li>${esc(d.pains[i].p)}</li>`).join('')}</ul>`
+    : `<div class="pd-empty">No pains marked during this call.</div>`;
+  const objsHtml = landed.objs.size
+    ? `<ul class="pd-list obj">${[...landed.objs].sort((a,b)=>a-b).map(i=>`<li>${esc(d.objections[i].o)}</li>`).join('')}</ul>`
+    : `<div class="pd-empty">No objections marked during this call.</div>`;
+  const nv=$('#notes').value.trim();
+  const notesHtml = nv
+    ? `<div class="pd-notes">${esc(nv)}</div>`
+    : `<div class="pd-empty">No notes captured.</div>`;
+
+  $('#print-doc').innerHTML = `
+    <div class="pd-hero">
+      <div class="pd-brand">GTT <span class="plus">+</span> <span class="hpe">HPE</span></div>
+      <div class="pd-eyebrow">Live Conversation Guide · Call Summary</div>
+      <h1>Call summary — <em>${esc(VNAME[vertical])}</em></h1>
+      <div class="pd-meta">
+        <div><div class="k">Vertical</div><div class="v">${esc(VNAME[vertical])}</div></div>
+        <div><div class="k">Captured</div><div class="v">${esc(date)}</div></div>
+        <div><div class="k">Points landed</div><div class="v">${landed.pains.size+landed.objs.size}</div></div>
+      </div>
+    </div>
+    <div class="pd-body">
+      <div class="pd-sec"><div class="pd-sec-tag">Pains that landed</div>${painsHtml}</div>
+      <div class="pd-sec"><div class="pd-sec-tag">Objections raised</div>${objsHtml}</div>
+      <div class="pd-sec"><div class="pd-sec-tag">Notes</div>${notesHtml}</div>
+      <div class="pd-foot">
+        <div class="path"><span>Unify</span><span class="arr">→</span><span>Orchestrate</span><span class="arr">→</span><span>Monitor</span><span class="arr">→</span><span>Protect</span></div>
+        <div class="fmeta">GTT + HPE field enablement · ${esc(date)}<br>Built on GTT Tier 1 network · HPE Networking Unified SASE</div>
+      </div>
+    </div>`;
+}
+
+render();
+</script>
+
+<div id="print-doc"></div>
+</body>
+</html>

@@ -1,3 +1,12 @@
-node_modules/
-.DS_Store
-*.log
+{
+  "name": "gtt-hpe-field-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GTT + HPE field enablement kit — hub + three static tools",
+  "scripts": {
+    "start": "serve -s site -l ${PORT:-3000}"
+  },
+  "dependencies": {
+    "serve": "14.2.1"
+  }
+}
