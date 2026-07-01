@@ -233,6 +233,14 @@ body.launch-open{overflow:hidden}
 </head>
 <body class="launch-open">
 
+<style>@media print{.tsw{display:none!important}}</style>
+<nav class="tsw" aria-label="Switch tool" style="position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-wrap:wrap;justify-content:center;gap:4px;align-items:center;background:rgba(10,13,12,.94);border:1px solid #2a3230;border-radius:100px;padding:5px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-family:'IBM Plex Mono',monospace;max-width:calc(100vw - 20px)">
+<a href="index.html" style="color:#e7e9e2;text-decoration:none;font-size:11px;font-weight:600;padding:6px 13px;border-radius:100px;white-space:nowrap">⌂ Hub</a>
+<a href="use-cases.html" style="color:#c7ccc5;text-decoration:none;font-size:11px;font-weight:600;padding:6px 13px;border-radius:100px;white-space:nowrap">Use Cases</a>
+<a href="live-guide.html" style="color:#c7ccc5;text-decoration:none;font-size:11px;font-weight:600;padding:6px 13px;border-radius:100px;white-space:nowrap">Live Guide</a>
+<a href="profile-builder.html" style="background:#27e07a;color:#0a0d0c;text-decoration:none;font-size:11px;font-weight:700;padding:6px 13px;border-radius:100px;white-space:nowrap">Profile</a>
+</nav>
+
 <!-- LAUNCHER -->
 <div id="launcher">
   <div class="lc-grid"></div>
@@ -256,11 +264,6 @@ body.launch-open{overflow:hidden}
 <div id="builder">
   <div class="topbar">
     <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">GTT <span class="plus">+</span> <span class="hpe">HPE</span></a> &nbsp;<span style="font-weight:400;color:var(--mut-light);font-size:14px">Profile Builder</span></div>
-    <nav style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-      <a href="index.html" style="color:inherit;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 10px;border:1px solid;border-radius:100px;opacity:.7;white-space:nowrap">⌂ Hub</a>
-      <a href="use-cases.html" style="color:inherit;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 10px;border:1px solid;border-radius:100px;opacity:.7;white-space:nowrap">Use Cases</a>
-      <a href="live-guide.html" style="color:inherit;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 10px;border:1px solid;border-radius:100px;opacity:.7;white-space:nowrap">Live Guide</a>
-    </nav>
     <div class="step-label" id="step-label">Step 1 of 4</div>
   </div>
 
