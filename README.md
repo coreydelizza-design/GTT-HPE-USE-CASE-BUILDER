@@ -38,7 +38,7 @@ work — see each tool's in-page sources notes and `docs/`.
 
 1. Push everything in this folder to a GitHub repo (repo root = this folder).
 2. Railway → New Project → Deploy from GitHub repo → pick it.
-3. Railway installs `serve` and runs `npx serve -s site -l $PORT`.
+3. Railway installs `serve` and runs `npx serve site -l $PORT`.
 4. Settings → Networking → Generate Domain. That URL is the hub.
 
 Because the start command serves `site/`, the `docs/` folder is never exposed —

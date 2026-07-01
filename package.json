@@ -4,7 +4,7 @@
   "private": true,
   "description": "GTT + HPE field enablement kit — hub + three static tools",
   "scripts": {
-    "start": "serve -s site -l ${PORT:-3000}"
+    "start": "serve site -l ${PORT:-3000}"
   },
   "dependencies": {
     "serve": "14.2.1"
