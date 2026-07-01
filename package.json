@@ -1,12 +1,3 @@
-{
-  "name": "gtt-hpe-use-cases",
-  "version": "1.0.0",
-  "private": true,
-  "description": "GTT + HPE strategic use case tool (static site)",
-  "scripts": {
-    "start": "serve -s . -l ${PORT:-3000}"
-  },
-  "dependencies": {
-    "serve": "14.2.1"
-  }
-}
+node_modules/
+.DS_Store
+*.log
