@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTT + HPE — Strategic Use Cases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0d0c;
+  --ink-2:#13191a;
+  --paper:#f3f4f0;
+  --paper-2:#e7e9e2;
+  --green:#27e07a;
+  --green-deep:#0fa455;
+  --green-ghost:#d4f5e2;
+  --teal:#1ea7a0;
+  --line:#cdd0c7;
+  --line-dark:#2a3230;
+  --mut:#5e655f;
+  --mut-light:#9aa39a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Archivo',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',monospace}
+.narrow{font-family:'Archivo Narrow',sans-serif}
+
+/* ---------- NAV ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--ink);
+  border-bottom:1px solid var(--line-dark);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,4vw,48px);height:60px;
+}
+.brand{display:flex;align-items:center;gap:14px;color:#fff;font-weight:800;font-size:18px;letter-spacing:-.01em}
+.brand .plus{color:var(--green);font-weight:400;font-size:22px}
+.brand .hpe{font-weight:300;letter-spacing:.06em}
+.navlinks{display:flex;gap:4px}
+.navlinks a{
+  color:var(--mut-light);text-decoration:none;font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;border-radius:6px;
+  transition:.18s;
+}
+.navlinks a:hover{color:#fff;background:var(--ink-2)}
+@media(max-width:760px){.navlinks{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:var(--ink);color:#fff;position:relative;overflow:hidden;
+  padding:clamp(56px,9vw,120px) clamp(16px,4vw,48px) clamp(64px,8vw,100px);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(39,224,122,.16), transparent 42%),
+    radial-gradient(circle at 12% 92%, rgba(30,167,160,.12), transparent 45%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:.4;pointer-events:none;
+  background-image:linear-gradient(var(--line-dark) 1px,transparent 1px),linear-gradient(90deg,var(--line-dark) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);
+}
+.hero-inner{position:relative;max-width:1180px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--green);border:1px solid rgba(39,224,122,.3);
+  padding:7px 14px;border-radius:100px;margin-bottom:28px;
+}
+.eyebrow .dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}
+h1.hero-title{
+  font-size:clamp(34px,6.2vw,76px);font-weight:900;line-height:1.02;
+  letter-spacing:-.025em;max-width:16ch;
+}
+h1.hero-title em{color:var(--green);font-style:normal}
+.hero-sub{
+  margin-top:26px;max-width:60ch;font-size:clamp(15px,2vw,19px);
+  color:#c7ccc5;font-weight:400;line-height:1.55;
+}
+.hero-meta{
+  margin-top:40px;display:flex;flex-wrap:wrap;gap:0;
+  border:1px solid var(--line-dark);border-radius:12px;overflow:hidden;
+  max-width:760px;background:rgba(255,255,255,.02);
+}
+.hero-meta div{
+  flex:1;min-width:150px;padding:18px 22px;border-right:1px solid var(--line-dark);
+}
+.hero-meta div:last-child{border-right:none}
+.hero-meta .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut-light);margin-bottom:6px}
+.hero-meta .v{font-size:15px;font-weight:600;color:#fff}
+.hero-meta .v span{color:var(--green)}
+
+/* ---------- SECTIONS ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+section{padding:clamp(48px,7vw,90px) 0}
+.sec-head{margin-bottom:clamp(32px,5vw,52px);max-width:62ch}
+.sec-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.sec-tag::before{content:"";width:26px;height:2px;background:var(--green-deep)}
+h2{font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.sec-head p{margin-top:16px;font-size:17px;color:var(--mut);max-width:58ch}
+
+/* ---------- CONTEXT STRIP ---------- */
+.context{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.principles{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+}
+.principle{background:var(--paper);padding:24px 22px;transition:.2s}
+.principle:hover{background:#fff}
+.principle .num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--green-deep);font-weight:600}
+.principle h4{font-size:16px;font-weight:700;margin:10px 0 8px;letter-spacing:-.01em}
+.principle p{font-size:13.5px;color:var(--mut);line-height:1.5}
+
+/* ---------- USE CASE SWITCHER ---------- */
+.uc-tabs{
+  display:flex;gap:10px;margin-bottom:38px;flex-wrap:wrap;
+  position:sticky;top:60px;z-index:30;background:var(--paper);
+  padding:14px 0;
+}
+.uc-tab{
+  flex:1;min-width:240px;text-align:left;cursor:pointer;
+  background:#fff;border:1.5px solid var(--line);border-radius:14px;
+  padding:18px 22px;transition:.2s;font-family:inherit;
+}
+.uc-tab .t-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:6px}
+.uc-tab .t-n{font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--ink);display:block}
+.uc-tab .t-d{font-size:13px;color:var(--mut);margin-top:4px;display:block}
+.uc-tab.active{border-color:var(--ink);background:var(--ink);box-shadow:0 10px 30px rgba(10,13,12,.18)}
+.uc-tab.active .t-n{color:#fff}
+.uc-tab.active .t-k{color:var(--green)}
+.uc-tab.active .t-d{color:var(--mut-light)}
+
+.uc-panel{display:none;animation:fade .4s ease}
+.uc-panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- SCENARIO CARD ---------- */
+.scenario{
+  background:var(--ink);color:#fff;border-radius:18px;overflow:hidden;
+  display:grid;grid-template-columns:1.15fr 1fr;margin-bottom:40px;
+  border:1px solid var(--line-dark);
+}
+@media(max-width:820px){.scenario{grid-template-columns:1fr}}
+.scenario .left{padding:clamp(28px,4vw,44px)}
+.scenario .right{
+  background:var(--ink-2);padding:clamp(28px,4vw,44px);
+  border-left:1px solid var(--line-dark);
+}
+@media(max-width:820px){.scenario .right{border-left:none;border-top:1px solid var(--line-dark)}}
+.scenario h3{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-.015em;margin-bottom:14px;line-height:1.12}
+.scenario .who{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green);
+  letter-spacing:.06em;margin-bottom:20px;text-transform:uppercase;
+}
+.scenario p{color:#c7ccc5;font-size:15px;line-height:1.6;margin-bottom:14px}
+.painlist{list-style:none;margin-top:8px}
+.painlist li{
+  display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line-dark);
+  font-size:14px;color:#dfe3dc;align-items:flex-start;
+}
+.painlist li:last-child{border-bottom:none}
+.painlist li::before{content:"!";flex:none;width:20px;height:20px;border-radius:5px;background:rgba(255,90,90,.16);color:#ff8c8c;font-weight:700;font-size:12px;display:grid;place-items:center;margin-top:1px}
+.right h5{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut-light);margin-bottom:18px}
+.statrow{display:flex;flex-direction:column;gap:20px}
+.statrow .stat .big{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:-.02em;color:var(--green);line-height:1}
+.statrow .stat .lbl{font-size:13px;color:#c7ccc5;margin-top:6px}
+
+/* ---------- ARCHITECTURE FLOW ---------- */
+.arch{margin:40px 0}
+.arch-title{font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:20px}
+.layers{display:flex;flex-direction:column;gap:12px}
+.layer{
+  display:grid;grid-template-columns:46px 1fr;gap:0;
+  border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;
+}
+.layer .idx{
+  background:var(--ink);color:var(--green);display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;
+}
+.layer .body{padding:16px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.layer .body .lt{flex:1;min-width:200px}
+.layer .body h4{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.layer .body p{font-size:13.5px;color:var(--mut);margin-top:3px}
+.tagpill{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+  padding:5px 11px;border-radius:100px;white-space:nowrap;
+}
+.tag-gtt{background:var(--green-ghost);color:var(--green-deep);border:1px solid var(--green)}
+.tag-hpe{background:#e4eeee;color:var(--teal);border:1px solid var(--teal)}
+.tag-both{background:#eae6f5;color:#6b54b8;border:1px solid #a994e8}
+
+/* ---------- SERVICES MAP ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:8px}
+.svc{
+  background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:22px 22px 20px;
+  transition:.2s;position:relative;
+}
+.svc:hover{border-color:var(--green-deep);transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,164,85,.12)}
+.svc .svc-cat{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);font-weight:600}
+.svc h4{font-size:17px;font-weight:700;margin:8px 0 8px;letter-spacing:-.01em}
+.svc p{font-size:13.5px;color:var(--mut);line-height:1.5}
+.svc a{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+  font-size:12.5px;font-weight:600;color:var(--ink);text-decoration:none;
+  border-bottom:1.5px solid var(--green);padding-bottom:1px;transition:.18s;
+}
+.svc a:hover{color:var(--green-deep)}
+.svc a::after{content:"→";transition:.18s}
+.svc a:hover::after{transform:translateX(3px)}
+
+/* ---------- OUTCOMES ---------- */
+.outcomes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:8px}
+.outcome{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:22px}
+.outcome .o-cat{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--green-deep);margin-bottom:12px}
+.outcome ul{list-style:none}
+.outcome li{font-size:13.5px;color:var(--ink);padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line)}
+.outcome li:last-child{border-bottom:none}
+.outcome li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:8px;border-radius:2px;background:var(--green)}
+
+/* ---------- PROOF ---------- */
+.proof{background:var(--ink);color:#fff;border-radius:18px;padding:clamp(28px,4vw,44px);margin-top:36px;border:1px solid var(--line-dark)}
+.proof .pf-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.proof-quote{font-size:clamp(18px,2.6vw,26px);font-weight:600;letter-spacing:-.01em;line-height:1.3;max-width:48ch}
+.proof-quote span{color:var(--green)}
+.proof-meta{margin-top:20px;font-size:14px;color:var(--mut-light)}
+
+/* ---------- ICP PROFILE ---------- */
+.icp{margin:8px 0 40px;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.icp-head{background:var(--ink);color:#fff;padding:24px clamp(22px,3vw,34px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.icp-head .ih-l .ih-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.icp-head .ih-l h3{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-.015em;line-height:1.1}
+.icp-head .ih-fit{text-align:right;flex:none}
+.icp-head .ih-fit .k{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut-light);margin-bottom:4px}
+.icp-head .ih-fit .v{font-size:14px;font-weight:600;color:#fff;max-width:22ch}
+.icp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line)}
+.icp-cell{background:#fff;padding:22px clamp(20px,2.4vw,26px)}
+.icp-cell .ic-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.icp-cell .ic-k::before{content:"";width:18px;height:2px;background:var(--green-deep)}
+.icp-cell ul{list-style:none}
+.icp-cell li{font-size:13.5px;color:var(--ink);line-height:1.45;padding:6px 0 6px 18px;position:relative;border-bottom:1px solid var(--paper-2)}
+.icp-cell li:last-child{border-bottom:none}
+.icp-cell li::before{content:"";position:absolute;left:0;top:12px;width:7px;height:7px;border-radius:2px;background:var(--green)}
+.icp-cell li b{font-weight:700}
+.icp-trig{background:var(--green-ghost);padding:22px clamp(20px,2.4vw,26px);border-top:1px solid var(--green)}
+.icp-trig .ic-k{color:var(--green-deep)}
+.icp-trig .ic-k::before{background:var(--green-deep)}
+.trig-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.trig{font-size:12.5px;font-weight:500;background:#fff;border:1px solid var(--green);color:var(--green-deep);padding:7px 13px;border-radius:100px}
+.icp-dq{padding:18px clamp(20px,2.4vw,26px);background:var(--paper-2);border-top:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.icp-dq .dq-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b4453c;font-weight:600;flex:none;padding-top:3px}
+.icp-dq .dq-list{font-size:13px;color:var(--mut);line-height:1.5;flex:1;min-width:220px}
+
+/* ---------- STAKES / PROVOCATION ---------- */
+.stakes{margin:8px 0 40px;border:1.5px solid var(--line-dark);border-radius:18px;overflow:hidden;background:var(--ink)}
+.stakes-q{padding:clamp(26px,4vw,40px) clamp(24px,4vw,44px);border-bottom:1px solid var(--line-dark)}
+.stakes-q .sq-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.stakes-q p{font-size:clamp(20px,3.2vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.18;color:#fff;max-width:24ch}
+.stakes-ba{display:grid;grid-template-columns:1fr 1fr;background:var(--line-dark);gap:1px}
+@media(max-width:680px){.stakes-ba{grid-template-columns:1fr}}
+.ba-side{padding:24px clamp(22px,3vw,32px)}
+.ba-side.today{background:var(--ink-2)}
+.ba-side.after{background:#0e1a13}
+.ba-side .ba-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ba-side.today .ba-k{color:#ff8c8c}
+.ba-side.after .ba-k{color:var(--green)}
+.ba-side ul{list-style:none}
+.ba-side li{font-size:14px;line-height:1.45;padding:9px 0 9px 20px;position:relative;border-bottom:1px solid rgba(255,255,255,.06);color:#dfe3dc}
+.ba-side li:last-child{border-bottom:none}
+.ba-side li::before{position:absolute;left:0;top:8px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700}
+.ba-side.today li::before{content:"\00d7";color:#ff8c8c}
+.ba-side.after li::before{content:"\2713";color:var(--green)}
+
+/* ---------- OBJECTION REOPENERS ---------- */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}
+.obj-card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:22px 22px 20px;transition:.2s}
+.obj-card:hover{border-color:var(--green-deep);box-shadow:0 12px 28px rgba(15,164,85,.1)}
+.obj-card .oc-hears{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;margin-bottom:8px}
+.obj-card .oc-obj{font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--ink);line-height:1.25;margin-bottom:14px}
+.obj-card .oc-obj::before{content:"\201C";color:var(--line);font-weight:400}
+.obj-card .oc-obj::after{content:"\201D";color:var(--line);font-weight:400}
+.obj-card .oc-reopen-k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);font-weight:700;margin-bottom:6px}
+.obj-card .oc-reopen{font-size:13.5px;color:var(--mut);line-height:1.5;font-style:italic}
+
+/* ---------- WHY GTT+HPE ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:8px}
+.why-card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:26px 24px;position:relative;transition:.2s}
+.why-card:hover{border-color:var(--green-deep);box-shadow:0 12px 28px rgba(15,164,85,.1)}
+.why-card .wc-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green-deep);font-weight:600;letter-spacing:.06em}
+.why-card h4{font-size:18px;font-weight:800;letter-spacing:-.015em;margin:12px 0 10px;line-height:1.15}
+.why-card p{font-size:14px;color:var(--mut);line-height:1.55}
+.why-card p b{color:var(--ink);font-weight:600}
+.why-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:680px){.why-split{grid-template-columns:1fr}}
+.why-side{border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.why-side .ws-head{padding:16px 22px;font-weight:800;font-size:15px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;border-bottom:1.5px solid var(--line)}
+.why-side.g .ws-head{background:var(--green-ghost);color:var(--green-deep)}
+.why-side.h .ws-head{background:#e4eeee;color:var(--teal)}
+.why-side .ws-head .ws-mark{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;padding:3px 9px;border-radius:100px;background:#fff}
+.why-side.g .ws-head .ws-mark{border:1px solid var(--green);color:var(--green-deep)}
+.why-side.h .ws-head .ws-mark{border:1px solid var(--teal);color:var(--teal)}
+.why-side ul{list-style:none;padding:8px 22px 18px}
+.why-side li{font-size:13.5px;color:var(--ink);line-height:1.45;padding:9px 0 9px 18px;position:relative;border-bottom:1px solid var(--paper-2)}
+.why-side li:last-child{border-bottom:none}
+.why-side li::before{content:"";position:absolute;left:0;top:14px;width:7px;height:7px;border-radius:2px}
+.why-side.g li::before{background:var(--green)}
+.why-side.h li::before{background:var(--teal)}
+.why-together{margin-top:16px;background:var(--ink);color:#fff;border-radius:14px;padding:24px clamp(22px,3vw,32px);border:1px solid var(--line-dark)}
+.why-together .wt-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.why-together p{font-size:clamp(15px,2vw,18px);font-weight:500;line-height:1.4;letter-spacing:-.01em;max-width:70ch}
+.why-together p span{color:var(--green)}
+
+/* ---------- SOURCES ---------- */
+.sources{max-width:1180px;margin:40px auto 0;border-top:1px solid var(--line-dark);padding-top:32px}
+.sources .src-head{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.sources .src-sub{font-size:13px;color:var(--mut-light);margin-bottom:22px;max-width:70ch;line-height:1.5}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:12px;overflow:hidden}
+.src-col{background:var(--ink);padding:20px 22px}
+.src-col h5{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:14px;font-weight:700}
+.src-col h5 .badge{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;padding:3px 8px;border-radius:100px;margin-left:8px;vertical-align:middle}
+.badge-src{background:rgba(39,224,122,.14);color:var(--green);border:1px solid rgba(39,224,122,.35)}
+.badge-orig{background:rgba(169,148,232,.14);color:#b9a6f0;border:1px solid rgba(169,148,232,.35)}
+.src-col ul{list-style:none}
+.src-col li{font-size:12.5px;color:#c7ccc5;line-height:1.45;padding:7px 0;border-bottom:1px solid var(--line-dark)}
+.src-col li:last-child{border-bottom:none}
+.src-col li b{color:#fff;font-weight:600}
+.src-col li a{color:var(--green);text-decoration:none;word-break:break-word}
+.src-col li a:hover{text-decoration:underline}
+
+/* ---------- INSIGHT LINKS ---------- */
+.insights-block{margin-top:36px}
+.insights-block .ib-tag{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.insights-block .ib-tag::before{content:"";width:26px;height:2px;background:var(--green-deep)}
+.insights-block .ib-sub{font-size:14px;color:var(--mut);margin-bottom:18px;max-width:62ch}
+.ilinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ilink{
+  display:block;text-decoration:none;background:#fff;border:1.5px solid var(--line);
+  border-radius:12px;padding:18px 20px;transition:.2s;
+}
+.ilink:hover{border-color:var(--green-deep);transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,164,85,.12)}
+.ilink .il-kind{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.ilink h4{font-size:15.5px;font-weight:700;color:var(--ink);margin:8px 0 6px;letter-spacing:-.01em;line-height:1.25}
+.ilink p{font-size:13px;color:var(--mut);line-height:1.45}
+.ilink .il-go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--green-deep)}
+.ilink .il-go::after{content:"↗";transition:.18s}
+.ilink:hover .il-go::after{transform:translate(2px,-2px)}
+
+/* ---------- SALES PLAY ---------- */
+.play{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+.play-step{background:#fff;padding:24px 22px}
+.play-step .ps-n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--green-deep);font-weight:600;margin-bottom:10px}
+.play-step h4{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+.play-step p{font-size:13px;color:var(--mut);line-height:1.5}
+
+/* ---------- DISCOVERY ---------- */
+.disc{background:var(--green-ghost);border:1px solid var(--green);border-radius:14px;padding:clamp(24px,3vw,34px);margin-top:36px}
+.disc h4{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+.disc .sub{font-size:13.5px;color:var(--green-deep);margin-bottom:18px;font-weight:500}
+.disc ol{list-style:none;counter-reset:q;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+@media(max-width:680px){.disc ol{grid-template-columns:1fr}}
+.disc li{counter-increment:q;font-size:14px;color:var(--ink);padding-left:30px;position:relative;line-height:1.45;padding-top:2px;padding-bottom:8px}
+.disc li::before{content:counter(q);position:absolute;left:0;top:0;width:21px;height:21px;background:var(--ink);color:var(--green);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;display:grid;place-items:center}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--ink);color:#fff;padding:clamp(40px,6vw,64px) clamp(16px,4vw,48px);margin-top:0}
+.foot-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+.foot-path{font-family:'IBM Plex Mono',monospace;font-size:clamp(18px,3vw,30px);font-weight:600;letter-spacing:-.01em}
+.foot-path span{color:var(--green)}
+.foot-path .arr{color:var(--mut);margin:0 6px}
+.foot-meta{font-size:12.5px;color:var(--mut-light);text-align:right;line-height:1.7}
+.foot-meta a{color:var(--green);text-decoration:none}
+.disclaimer{max-width:1180px;margin:30px auto 0;padding-top:20px;border-top:1px solid var(--line-dark);font-size:11.5px;color:var(--mut);line-height:1.6}
+
+/* print */
+@media print{
+  .topbar,.uc-tabs{position:static}
+  .uc-panel{display:block!important}
+  .uc-tab{display:none}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="brand">GTT <span class="plus">+</span> <span class="hpe">HPE</span></div>
+  <nav class="navlinks">
+    <a href="#context">Blueprint</a>
+    <a href="#cases">Use Cases</a>
+    <a href="#why">Why GTT + HPE</a>
+    <a href="#play">Sales Play</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span>Strategic Use Case Library · Field Enablement</span>
+    <h1 class="hero-title">Secure the edge, <em>everywhere</em> your customer operates.</h1>
+    <p class="hero-sub">Two reference use cases built on the GTT + HPE Networking Unified SASE blueprint — one for distributed quick-serve retail, one for global manufacturing. Designed to be presented, repeated, and won across every GTT region.</p>
+    <div class="hero-meta">
+      <div><div class="k">Partnership</div><div class="v">GTT Tier 1 network <span>+</span> HPE Unified SASE</div></div>
+      <div><div class="k">Use Cases</div><div class="v">QSR Retail <span>·</span> Global Mfg</div></div>
+      <div><div class="k">Audience</div><div class="v">CIO / CISO / NetOps / SecOps</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTEXT -->
+<section class="context" id="context">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">The shared blueprint</div>
+      <h2>One architecture. Five principles. Every user at the edge.</h2>
+      <p>Both use cases run on the same converged design — SD-WAN, Secure Service Edge, zero trust, and policy-driven control, unified on GTT's Tier 1 backbone. The difference is the edge they protect.</p>
+    </div>
+    <div class="principles">
+      <div class="principle"><div class="num">01</div><h4>Identity-first access</h4><p>Trust follows the user and device, never the location. ZTNA replaces the perimeter.</p></div>
+      <div class="principle"><div class="num">02</div><h4>Converged fabric</h4><p>Networking and security operate as one system — SWG, CASB, ZTNA delivered from the cloud.</p></div>
+      <div class="principle"><div class="num">03</div><h4>Policy orchestration</h4><p>Policy defined in business terms, enforced consistently from branch to cloud.</p></div>
+      <div class="principle"><div class="num">04</div><h4>Continuous telemetry</h4><p>Real-time visibility across flows, devices, and workloads. You can't protect what you can't see.</p></div>
+      <div class="principle"><div class="num">05</div><h4>Measurable simplicity</h4><p>Fewer vendors, faster deployment, lower MTTR — reported in business metrics, not jargon.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">The use cases</div>
+      <h2>Same blueprint, two very different edges.</h2>
+      <p>Select a use case to walk the customer story, the GTT + HPE architecture, the complementary GTT services that round out the deal, and the measurable outcomes that close it.</p>
+    </div>
+
+    <div class="uc-tabs">
+      <button class="uc-tab active" data-uc="qsr">
+        <span class="t-k">Use Case 01 · Retail</span>
+        <span class="t-n">Quick-Serve Retail at Scale</span>
+        <span class="t-d">Hundreds to thousands of small footprints, thin IT, PCI everywhere</span>
+      </button>
+      <button class="uc-tab" data-uc="mfg">
+        <span class="t-k">Use Case 02 · Manufacturing</span>
+        <span class="t-n">Global Manufacturing & OT</span>
+        <span class="t-d">Plants, OT/IoT, Industry 4.0, multi-country compliance</span>
+      </button>
+    </div>
+
+    <!-- ============ QSR PANEL ============ -->
+    <div class="uc-panel active" id="uc-qsr">
+
+      <div class="scenario">
+        <div class="left">
+          <div class="who">Industry profile · Quick-Serve Retail</div>
+          <h3>The typical multi-site QSR brand runs every store on a flat network and a franchise patchwork.</h3>
+          <p>Across this segment, each store is a tiny edge: a POS system, kitchen display screens, drive-thru, guest Wi-Fi, digital menu boards, security cameras, and an increasingly common back-office tablet. IT staff per store? Effectively zero. The "network team" is a handful of people supporting hundreds to thousands of sites.</p>
+          <ul class="painlist">
+            <li>Guest Wi-Fi shares the same flat network as the POS — one compromised tablet exposes cardholder data.</li>
+            <li>PCI-DSS scope is the entire store because nothing is segmented.</li>
+            <li>A new location takes weeks to turn up; a router swap means a truck roll.</li>
+            <li>SaaS apps (ordering, loyalty, labor) are slow because traffic backhauls to a distant data center.</li>
+            <li>Franchise vs. corporate sites run different gear with no consistent policy or visibility.</li>
+          </ul>
+        </div>
+        <div class="right">
+          <h5>What "good" looks like</h5>
+          <div class="statrow">
+            <div class="stat"><div class="big">Days → hours</div><div class="lbl">New-store turn-up with zero-touch SD-WAN edge</div></div>
+            <div class="stat"><div class="big">PCI scope ↓</div><div class="lbl">Segmentation shrinks audit scope to the payment path only</div></div>
+            <div class="stat"><div class="big">1 console</div><div class="lbl">Corporate + franchise under one policy and one pane of glass</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stakes">
+        <div class="stakes-q">
+          <div class="sq-k">The question worth asking in the room</div>
+          <p>When one register gets breached, how much of the business goes with it?</p>
+        </div>
+        <div class="stakes-ba">
+          <div class="ba-side today">
+            <div class="ba-k">How the segment runs today</div>
+            <ul>
+              <li>Guest Wi-Fi, POS, and cameras share one flat network</li>
+              <li>A compromised device can reach cardholder data</li>
+              <li>PCI audit scope is the entire store</li>
+              <li>New sites take weeks; changes mean a truck roll</li>
+            </ul>
+          </div>
+          <div class="ba-side after">
+            <div class="ba-k">How it runs on the blueprint</div>
+            <ul>
+              <li>POS, guest, and IoT are segmented from each other</li>
+              <li>A breached menu board can't touch payment data</li>
+              <li>Audit scope shrinks to the payment path only</li>
+              <li>Zero-touch turn-up; policy pushed from one console</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp">
+        <div class="icp-head">
+          <div class="ih-l">
+            <div class="ih-tag">Ideal Customer Profile · Use Case 01</div>
+            <h3>Multi-site quick-serve & franchise retail</h3>
+          </div>
+          <div class="ih-fit">
+            <div class="k">Best-fit signal</div>
+            <div class="v">Many small sites, near-zero on-site IT, card data in every location</div>
+          </div>
+        </div>
+        <div class="icp-grid">
+          <div class="icp-cell">
+            <div class="ic-k">Company size</div>
+            <ul>
+              <li><b>100–5,000+ locations</b> (sweet spot 250–2,500)</li>
+              <li>Revenue <b>$150M–$5B</b></li>
+              <li>Small central IT/network team relative to site count</li>
+              <li>Mix of corporate-owned and franchised sites</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Geography</div>
+            <ul>
+              <li>National or multi-region footprint</li>
+              <li>Dense store distribution across many metros</li>
+              <li>Single-country or early multi-country expansion</li>
+              <li>Sites on inconsistent local ISPs today</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Vertical & segment</div>
+            <ul>
+              <li>QSR &amp; fast-casual dining</li>
+              <li>Convenience &amp; fuel retail</li>
+              <li>Specialty &amp; franchise retail chains</li>
+              <li>Coffee, fitness, and other high-density franchise brands</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Profile of the edge</div>
+            <ul>
+              <li>POS, KDS, drive-thru, digital menu boards</li>
+              <li>Guest Wi-Fi sharing a flat network</li>
+              <li>Cameras / IoT with no segmentation</li>
+              <li>PCI-DSS obligation at every site</li>
+            </ul>
+          </div>
+        </div>
+        <div class="icp-trig">
+          <div class="ic-k">Buying triggers — when this customer is in-market</div>
+          <div class="trig-row">
+            <span class="trig">PCI audit failure or upcoming assessment</span>
+            <span class="trig">Aggressive new-store growth plan</span>
+            <span class="trig">MPLS / legacy WAN contract expiring</span>
+            <span class="trig">Security breach at a store</span>
+            <span class="trig">POS or loyalty platform refresh</span>
+            <span class="trig">M&amp;A folding in new banners</span>
+            <span class="trig">Guest Wi-Fi / IoT rollout</span>
+            <span class="trig">New CISO or VP of IT</span>
+          </div>
+        </div>
+        <div class="icp-dq">
+          <div class="dq-k">Not a fit</div>
+          <div class="dq-list">Single-site or &lt;25-location operators · businesses with full IT staff at every location · pure e-commerce with no physical footprint · organizations with no card-present transactions or compliance pressure.</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:8px 0 4px">The shift this creates</h3>
+      <p style="color:var(--mut);font-size:14px;margin-bottom:20px;max-width:60ch">Where the segment lands — in business terms — before we get into how it's built.</p>
+      <div class="outcomes">
+        <div class="outcome"><div class="o-cat">Security posture</div><ul><li>PCI scope reduced to payment path</li><li>Guest / IoT / POS fully segmented</li><li>Audit-ready logging per store</li></ul></div>
+        <div class="outcome"><div class="o-cat">Operational efficiency</div><ul><li>Zero-touch store turn-up</li><li>One console, all sites</li><li>Franchise + corporate unified</li></ul></div>
+        <div class="outcome"><div class="o-cat">Performance</div><ul><li>Local breakout to SaaS</li><li>Faster ordering + loyalty apps</li><li>Wireless failover uptime</li></ul></div>
+        <div class="outcome"><div class="o-cat">Financial impact</div><ul><li>Fewer truck rolls</li><li>Reduced vendor count</li><li>Lower TCO per location</li></ul></div>
+      </div>
+
+      <div class="arch">
+        <div class="arch-title">// GTT + HPE reference architecture — applied to the store edge</div>
+        <div class="layers">
+          <div class="layer"><div class="idx">1</div><div class="body"><div class="lt"><h4>Tier 1 global backbone</h4><p>Low-latency IP core so loyalty, ordering, and labor SaaS perform the same in every market — no local-ISP roulette.</p></div><span class="tagpill tag-gtt">GTT Connect</span></div></div>
+          <div class="layer"><div class="idx">2</div><div class="body"><div class="lt"><h4>SD-WAN store edge</h4><p>Application-aware routing over broadband + wireless failover. Zero-touch provisioning ships an appliance to the store and it self-configures.</p></div><span class="tagpill tag-both">GTT Managed SD-WAN + HPE SD-Branch</span></div></div>
+          <div class="layer"><div class="idx">3</div><div class="body"><div class="lt"><h4>Secure Service Edge</h4><p>Cloud-delivered SWG, CASB, DLP and firewall inspect every store's traffic — guest Wi-Fi, IoT, and POS — without backhaul.</p></div><span class="tagpill tag-hpe">HPE Unified SASE (SSE)</span></div></div>
+          <div class="layer"><div class="idx">4</div><div class="body"><div class="lt"><h4>Identity + device segmentation</h4><p>ZTNA isolates POS from guest Wi-Fi from kitchen IoT. A compromised menu board can't reach cardholder data — that's the PCI win.</p></div><span class="tagpill tag-hpe">HPE ZTNA + device intelligence</span></div></div>
+          <div class="layer"><div class="idx">5</div><div class="body"><div class="lt"><h4>Orchestration + telemetry</h4><p>One console pushes policy to all 1,200 stores and surfaces incidents, SLA and config status in real time — corporate and franchise alike.</p></div><span class="tagpill tag-gtt">GTT EnvisionDX</span></div></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:36px 0 4px">Complementary GTT services that complete the deal</h3>
+      <p style="color:var(--mut);font-size:14px;margin-bottom:20px;max-width:60ch">Beyond the SASE core, these GTT.net services turn a connectivity sale into a full managed-edge relationship.</p>
+      <div class="svc-grid">
+        <div class="svc"><div class="svc-cat">Managed Networking</div><h4>Internet / DIA + wireless failover</h4><p>Diverse broadband and 4G/5G backup keep the drive-thru and POS online when the primary circuit drops.</p><a href="https://www.gtt.net/services/managed-networking/internet/" target="_blank">Internet services</a></div>
+        <div class="svc"><div class="svc-cat">Voice</div><h4>Cloud Phone Direct + SIP</h4><p>Store ordering lines, manager phones, and contact-center voice consolidated onto one cloud voice platform.</p><a href="https://www.gtt.net/services/voice/" target="_blank">Voice services</a></div>
+        <div class="svc"><div class="svc-cat">Secure Networking</div><h4>SASE: Secure Connect</h4><p>GTT's productized SASE wraps HPE SSE with managed policy, so the customer's thin IT team never touches the console.</p><a href="https://www.gtt.net/services/secure-networking/sase-secure-connect/" target="_blank">Secure Connect</a></div>
+        <div class="svc"><div class="svc-cat">Professional Services</div><h4>Project + program management</h4><p>Coordinated mass-rollout across 1,200 sites — site surveys, scheduling, and migration without a brand-side army.</p><a href="https://www.gtt.net/services/professional-services/" target="_blank">Professional services</a></div>
+      </div>
+
+      <div class="proof">
+        <div class="pf-tag">Proof point · in the GTT portfolio</div>
+        <div class="proof-quote">Global fashion retailer <span>Kiabi</span> runs streamlined operations across <span>431 sites</span> on GTT connectivity and local support — the same multi-site retail playbook, proven.</div>
+        <div class="proof-meta">Retail multi-site reference · gtt.net case studies · pair with HMY Group (MPLS→SD-WAN, +22% cost reduction) for the modernization story.</div>
+      </div>
+
+      <div class="insights-block">
+        <div class="ib-tag">Supporting GTT insight · linkable proof</div>
+        <div class="ib-sub">Live GTT.net content to forward ahead of a meeting or cite in the deck — current, branded, and on-message for the retail edge story.</div>
+        <div class="ilinks">
+          <a class="ilink" href="https://www.gtt.net/resources/case-studies/kiabi-case-study/" target="_blank">
+            <div class="il-kind">Case study · Retail</div>
+            <h4>Kiabi — 431 sites on GTT</h4>
+            <p>Global fashion retailer streamlines multi-site operations with GTT connectivity and local support.</p>
+            <span class="il-go">Read case study</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/case-studies/hmy-group-case-study/" target="_blank">
+            <div class="il-kind">Case study · Retail</div>
+            <h4>HMY Group — MPLS → SD-WAN</h4>
+            <p>Retail furnishing provider doubled bandwidth and cut network costs 22% on GTT Managed SD-WAN.</p>
+            <span class="il-go">Read case study</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/blog/how-a-single-backbone-beats-a-patchwork-network/" target="_blank">
+            <div class="il-kind">Blog · Backbone</div>
+            <h4>One backbone beats a patchwork</h4>
+            <p>Why a single Tier 1 network outperforms stitched-together local circuits across many sites.</p>
+            <span class="il-go">Read article</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MFG PANEL ============ -->
+    <div class="uc-panel" id="uc-mfg">
+
+      <div class="scenario">
+        <div class="left">
+          <div class="who">Industry profile · Global Manufacturing</div>
+          <h3>The typical multinational manufacturer runs plants across many countries, modernizing into Industry 4.0.</h3>
+          <p>Across this segment, each plant blends modern IT with decades-old operational technology: PLCs, SCADA, robotics, sensors, and connected machines that were never designed to touch the internet — but now feed cloud analytics and AI quality systems. The attack surface exploded the moment OT met the cloud.</p>
+          <ul class="painlist">
+            <li>OT and IT share infrastructure; one phished office laptop can reach the plant floor and halt production.</li>
+            <li>Legacy machines can't run security agents, yet now require cloud connectivity for telemetry.</li>
+            <li>Each country has its own compliance regime (GDPR, data residency, sector rules) and its own local carrier.</li>
+            <li>Third-party integrators and equipment vendors need narrow remote access — today they get VPNs into the whole network.</li>
+            <li>Unplanned downtime costs five to seven figures per hour, so MTTR is a board-level number.</li>
+          </ul>
+        </div>
+        <div class="right">
+          <h5>What "good" looks like</h5>
+          <div class="statrow">
+            <div class="stat"><div class="big">IT ⊥ OT</div><div class="lbl">Hard segmentation stops lateral movement to the plant floor</div></div>
+            <div class="stat"><div class="big">Least-priv</div><div class="lbl">Vendors reach one machine, not the network</div></div>
+            <div class="stat"><div class="big">170+ countries</div><div class="lbl">One backbone, consistent policy and SLA across every plant</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stakes">
+        <div class="stakes-q">
+          <div class="sq-k">The question worth asking in the room</div>
+          <p>If a phished laptop can reach the plant floor, what stops the line from stopping?</p>
+        </div>
+        <div class="stakes-ba">
+          <div class="ba-side today">
+            <div class="ba-k">How the segment runs today</div>
+            <ul>
+              <li>IT and OT share infrastructure; lateral movement is open</li>
+              <li>Legacy machines can't run agents, yet sit on the network</li>
+              <li>Vendors get VPNs into the whole environment</li>
+              <li>Each country is its own carrier, policy, and compliance island</li>
+            </ul>
+          </div>
+          <div class="ba-side after">
+            <div class="ba-k">How it runs on the blueprint</div>
+            <ul>
+              <li>IT and OT hard-segmented; lateral movement blocked</li>
+              <li>Agentless device intelligence quarantines legacy OT</li>
+              <li>Vendors reach one asset, not the network</li>
+              <li>One backbone, policy and residency enforced centrally</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp">
+        <div class="icp-head">
+          <div class="ih-l">
+            <div class="ih-tag">Ideal Customer Profile · Use Case 02</div>
+            <h3>Global multi-plant manufacturing</h3>
+          </div>
+          <div class="ih-fit">
+            <div class="k">Best-fit signal</div>
+            <div class="v">Multiple plants across countries, converging OT with cloud, downtime measured in $/hour</div>
+          </div>
+        </div>
+        <div class="icp-grid">
+          <div class="icp-cell">
+            <div class="ic-k">Company size</div>
+            <ul>
+              <li><b>$500M–$20B+</b> revenue</li>
+              <li><b>5–100+ plants</b> / production sites</li>
+              <li>Enterprise IT + dedicated OT / plant engineering</li>
+              <li>Global NetOps and SecOps, often understaffed for the footprint</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Geography</div>
+            <ul>
+              <li>Operations across <b>multiple countries / regions</b></li>
+              <li>Mix of mature and emerging-market sites</li>
+              <li>Patchwork of local/regional carriers today</li>
+              <li>Cross-border data-residency obligations</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Vertical & segment</div>
+            <ul>
+              <li>Automotive &amp; components</li>
+              <li>Industrial / discrete &amp; process manufacturing</li>
+              <li>Food, beverage &amp; CPG production</li>
+              <li>Chemicals, electronics, pharma</li>
+            </ul>
+          </div>
+          <div class="icp-cell">
+            <div class="ic-k">Profile of the edge</div>
+            <ul>
+              <li>OT: PLCs, SCADA, robotics, sensors</li>
+              <li>Legacy machines that can't run agents</li>
+              <li>Cloud analytics / AI quality systems pulling plant data</li>
+              <li>Third-party integrators needing remote access</li>
+            </ul>
+          </div>
+        </div>
+        <div class="icp-trig">
+          <div class="ic-k">Buying triggers — when this customer is in-market</div>
+          <div class="trig-row">
+            <span class="trig">Industry 4.0 / smart-factory initiative</span>
+            <span class="trig">OT security incident or ransomware scare</span>
+            <span class="trig">Cloud / ERP / MES migration</span>
+            <span class="trig">Global MPLS contract expiring</span>
+            <span class="trig">New plant or acquisition to integrate</span>
+            <span class="trig">IT/OT convergence mandate</span>
+            <span class="trig">Regulatory / data-residency pressure</span>
+            <span class="trig">Unplanned-downtime cost scrutiny</span>
+          </div>
+        </div>
+        <div class="icp-dq">
+          <div class="dq-k">Not a fit</div>
+          <div class="dq-list">Single-plant or domestic-only operations with no OT exposure · pure-office enterprises with no production floor · organizations with no cloud/analytics ambition for plant data · sites where OT is fully air-gapped and staying that way.</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:8px 0 4px">The shift this creates</h3>
+      <p style="color:var(--mut);font-size:14px;margin-bottom:20px;max-width:60ch">Where the segment lands — in business terms — before we get into how it's built.</p>
+      <div class="outcomes">
+        <div class="outcome"><div class="o-cat">Security posture</div><ul><li>IT/OT lateral movement blocked</li><li>Legacy OT quarantined, agentless</li><li>Per-country compliance enforced</li></ul></div>
+        <div class="outcome"><div class="o-cat">Operational efficiency</div><ul><li>One carrier, all plants</li><li>Aligned global NetOps + SecOps</li><li>Vendor access without VPN sprawl</li></ul></div>
+        <div class="outcome"><div class="o-cat">Performance</div><ul><li>Prioritized OT + ERP traffic</li><li>Low-latency cloud analytics</li><li>Higher SLA consistency</li></ul></div>
+        <div class="outcome"><div class="o-cat">Financial impact</div><ul><li>Reduced unplanned downtime</li><li>Lower incident recovery cost</li><li>Consolidated global TCO</li></ul></div>
+      </div>
+
+      <div class="arch">
+        <div class="arch-title">// GTT + HPE reference architecture — applied to the plant edge</div>
+        <div class="layers">
+          <div class="layer"><div class="idx">1</div><div class="body"><div class="lt"><h4>Tier 1 global backbone</h4><p>One operator across 170+ countries replaces a patchwork of local carriers — consistent latency for cloud analytics and AI workloads, plant to cloud.</p></div><span class="tagpill tag-gtt">GTT Connect</span></div></div>
+          <div class="layer"><div class="idx">2</div><div class="body"><div class="lt"><h4>SD-WAN plant edge</h4><p>Application-aware routing prioritizes real-time OT telemetry and ERP traffic; encrypted links inspected without degrading throughput.</p></div><span class="tagpill tag-both">GTT Managed SD-WAN + HPE SD-Branch</span></div></div>
+          <div class="layer"><div class="idx">3</div><div class="body"><div class="lt"><h4>Secure Service Edge</h4><p>Cloud-delivered inspection and DLP protect engineering workstations and cloud workloads without backhauling across continents.</p></div><span class="tagpill tag-hpe">HPE Unified SASE (SSE)</span></div></div>
+          <div class="layer"><div class="idx">4</div><div class="body"><div class="lt"><h4>OT/IoT segmentation + agentless device intelligence</h4><p>AI-powered device profiling fingerprints legacy machines that can't run agents and quarantines them into micro-segments. ZTNA gives vendors least-privilege access to a single asset.</p></div><span class="tagpill tag-hpe">HPE ZTNA + AI device intelligence</span></div></div>
+          <div class="layer"><div class="idx">5</div><div class="body"><div class="lt"><h4>Orchestration, telemetry + compliance</h4><p>Per-country policy and data-residency rules enforced centrally; audit trails and SLA posture surfaced in one platform for global NetOps + SecOps.</p></div><span class="tagpill tag-gtt">GTT EnvisionDX</span></div></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:36px 0 4px">Complementary GTT services that complete the deal</h3>
+      <p style="color:var(--mut);font-size:14px;margin-bottom:20px;max-width:60ch">Manufacturing deals are global and managed-heavy — these GTT.net services carry the weight a brand-side IT team can't.</p>
+      <div class="svc-grid">
+        <div class="svc"><div class="svc-cat">Managed Networking</div><h4>Cloud Connect</h4><p>Private, performant on-ramps to AWS / Azure / GCP for the analytics and AI quality systems pulling plant-floor data.</p><a href="https://www.gtt.net/services/managed-networking/cloud-connect/" target="_blank">Cloud Connect</a></div>
+        <div class="svc"><div class="svc-cat">Cloud Solutions</div><h4>Hybrid Cloud + app management</h4><p>Bridges regional data centers and public cloud for ERP/MES workloads that can't all move at once.</p><a href="https://www.gtt.net/services/cloud-solutions/" target="_blank">Cloud Solutions</a></div>
+        <div class="svc"><div class="svc-cat">Secure Networking</div><h4>Cloud Security + Secure Connect</h4><p>Managed SASE policy and threat inspection so a lean global security team gets follow-the-sun coverage.</p><a href="https://www.gtt.net/services/secure-networking/cloud-security/" target="_blank">Cloud Security</a></div>
+        <div class="svc"><div class="svc-cat">Professional Services</div><h4>Program + customer incident mgmt</h4><p>Global rollout governance and rapid incident response — because in manufacturing, MTTR is measured in lost production.</p><a href="https://www.gtt.net/services/professional-services/" target="_blank">Professional services</a></div>
+      </div>
+
+      <div class="proof">
+        <div class="pf-tag">Proof point · in the GTT portfolio</div>
+        <div class="proof-quote">Automotive supplier <span>Röchling</span> transformed its network with GTT Managed SD-WAN — <span>+50% bandwidth</span> to power its Industry 4.0 implementation.</div>
+        <div class="proof-meta">Manufacturing reference · gtt.net case studies · pair with Barry Callebaut (Gen-4 Managed SD-WAN, global control + visibility) and Mitsubishi Electric (SD-WAN + SIP + secure remote access).</div>
+      </div>
+
+      <div class="insights-block">
+        <div class="ib-tag">Supporting GTT insight · linkable proof</div>
+        <div class="ib-sub">Live GTT.net content that maps directly to the plant-edge story — OT exposure, vendor access, and the single-backbone case. Forward ahead of a meeting or cite in the deck.</div>
+        <div class="ilinks">
+          <a class="ilink" href="https://www.gtt.net/resources/case-studies/rochling-automotive-case-study/" target="_blank">
+            <div class="il-kind">Case study · Manufacturing</div>
+            <h4>Röchling — +50% bandwidth</h4>
+            <p>Automotive supplier transformed its network with GTT Managed SD-WAN to power Industry 4.0.</p>
+            <span class="il-go">Read case study</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/blog/manufacturings-cyber-problem-isnt-what-you-think/" target="_blank">
+            <div class="il-kind">Blog · OT security</div>
+            <h4>Manufacturing's cyber problem</h4>
+            <p>Manufacturing now accounts for 22% of attacks — and OT exposure is the real story, not just ransomware.</p>
+            <span class="il-go">Read article</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/blog/the-access-problem-manufacturers-keep-underestimating/" target="_blank">
+            <div class="il-kind">Blog · Remote access</div>
+            <h4>The access problem manufacturers miss</h4>
+            <p>Vendor and third-party remote access is the underestimated risk — exactly the ZTNA least-privilege layer.</p>
+            <span class="il-go">Read article</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/case-studies/barry-callebaut-case-study/" target="_blank">
+            <div class="il-kind">Case study · Manufacturing</div>
+            <h4>Barry Callebaut — Gen-4 SD-WAN</h4>
+            <p>World's leading chocolate manufacturer gained global control and visibility on Managed SD-WAN.</p>
+            <span class="il-go">Read case study</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/case-studies/mitsubishi-electric-case-study-4/" target="_blank">
+            <div class="il-kind">Case study · Manufacturing</div>
+            <h4>Mitsubishi Electric UK</h4>
+            <p>SD-WAN, SIP Trunking, and Secure Remote Access boosting business agility.</p>
+            <span class="il-go">Read case study</span>
+          </a>
+          <a class="ilink" href="https://www.gtt.net/resources/blog/how-a-single-backbone-beats-a-patchwork-network/" target="_blank">
+            <div class="il-kind">Blog · Backbone</div>
+            <h4>One backbone beats a patchwork</h4>
+            <p>Why a single Tier 1 network outperforms stitched-together local carriers across global plants.</p>
+            <span class="il-go">Read article</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY GTT + HPE -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Why GTT + HPE</div>
+      <h2>Neither half solves this alone. The partnership is the differentiator.</h2>
+      <p>The customer sees themselves in the use case — now they ask the only question that matters: why this partnership, over a point SASE vendor or a DIY stack? The answer is that GTT and HPE cover the two halves most vendors leave gapped.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wc-n">01</div>
+        <h4>Convergence, not integration</h4>
+        <p>Most "SASE" is a bag of parts from different vendors, stitched by the customer. HPE Unified SASE delivers <b>SD-Branch, SSE and ZTNA as one architecture</b> — the white paper's whole thesis. One policy, branch to cloud.</p>
+      </div>
+      <div class="why-card">
+        <div class="wc-n">02</div>
+        <h4>The backbone under it</h4>
+        <p>SASE is only as consistent as the network beneath it. GTT's <b>Tier 1 IP core across 170+ countries</b> means the same latency, policy and SLA at every site — not local-ISP roulette a pure-software vendor can't fix.</p>
+      </div>
+      <div class="why-card">
+        <div class="wc-n">03</div>
+        <h4>One throat to choke</h4>
+        <p>Nobody wants to own the backbone, edge, security stack and remediation themselves. GTT delivers it <b>fully managed, single-source</b> — the model a lean IT or OT team actually needs to run this.</p>
+      </div>
+    </div>
+
+    <div class="why-split">
+      <div class="why-side g">
+        <div class="ws-head">GTT brings <span class="ws-mark">Network + Managed</span></div>
+        <ul>
+          <li>Top-ranked Tier 1 backbone, 170+ countries, 400+ PoPs</li>
+          <li>Managed SD-WAN and global edge operations</li>
+          <li>EnvisionDX — one console for policy, telemetry and SLA</li>
+          <li>Professional services for mass, multi-site rollout</li>
+          <li>Single-source accountability across the whole stack</li>
+        </ul>
+      </div>
+      <div class="why-side h">
+        <div class="ws-head">HPE brings <span class="ws-mark">Unified SASE</span></div>
+        <ul>
+          <li>SD-Branch, SSE and ZTNA in one converged architecture</li>
+          <li>AI-powered device intelligence for agentless OT/IoT</li>
+          <li>Identity-first, least-privilege access at the edge</li>
+          <li>Cloud-delivered SWG, CASB, DLP and firewall inspection</li>
+          <li>Consistent policy from branch to cloud</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="why-together">
+      <div class="wt-k">Together</div>
+      <p>A converged security architecture <span>on top of</span> a Tier 1 global network, <span>delivered as one managed service</span> — so the customer moves beyond just SASE without taking on the integration, the carriers, or the operational burden themselves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SALES PLAY -->
+<section class="context" id="play">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">How GTT sells it</div>
+      <h2>The repeatable motion — works for both use cases.</h2>
+      <p>This is the same phased path the white paper prescribes, translated into a GTT sales motion any region can run.</p>
+    </div>
+    <div class="play">
+      <div class="play-step"><div class="ps-n">Phase 1</div><h4>Assess</h4><p>Inventory the customer's edge devices, carriers, and policy gaps. Surface the high-risk exposure points. Lead as the trusted partner.</p></div>
+      <div class="play-step"><div class="ps-n">Phase 2</div><h4>Align policy</h4><p>Define identity-first access in business terms — by role, app, region, and compliance need — before touching hardware.</p></div>
+      <div class="play-step"><div class="ps-n">Phase 3</div><h4>Converge</h4><p>Deploy GTT Managed SD-WAN + HPE Unified SASE together. Collapse the appliance stack at each site.</p></div>
+      <div class="play-step"><div class="ps-n">Phase 4</div><h4>Unify telemetry</h4><p>Bring logging and analytics into GTT EnvisionDX. Stand up the executive dashboards the board will ask for.</p></div>
+      <div class="play-step"><div class="ps-n">Phase 5</div><h4>Optimize</h4><p>Refine policy on real behavior and threat data. This is where managed services become a renewing relationship.</p></div>
+    </div>
+
+    <div class="disc">
+      <h4>Discovery questions for the first call</h4>
+      <div class="sub">Use these to qualify either use case and find the compelling event.</div>
+      <ol>
+        <li>How many sites, and how much IT presence does each one actually have?</li>
+        <li>Is guest, IoT/OT, and production traffic segmented today — or sharing one flat network?</li>
+        <li>How long does it take to turn up a new location or plant right now?</li>
+        <li>How do third parties and equipment vendors get remote access today?</li>
+        <li>How many security vendors and consoles is the team managing across regions?</li>
+        <li>What's your mean time to detect and respond when something goes wrong?</li>
+        <li>Where does your traffic break out to cloud and SaaS — locally, or backhauled?</li>
+        <li>What does an hour of downtime or a failed audit actually cost the business?</li>
+      </ol>
+    </div>
+
+    <div style="margin-top:40px">
+      <div class="sec-tag">Objection reopeners</div>
+      <h2 style="font-size:clamp(22px,3vw,32px);margin-bottom:6px">Keep the conversation open, not closed.</h2>
+      <p style="color:var(--mut);font-size:15px;margin-bottom:22px;max-width:60ch">The three objections this motion hits most. Each one is answered with a question that reopens discovery — not a rebuttal that ends it.</p>
+      <div class="obj-grid">
+        <div class="obj-card">
+          <div class="oc-hears">You'll hear</div>
+          <div class="oc-obj">We already have SASE.</div>
+          <div class="oc-reopen-k">Reopen with</div>
+          <div class="oc-reopen">Most who say that have SD-WAN from one vendor and security from another. When your network and security teams look at an incident, are they looking at the same screen — or reconciling two?</div>
+        </div>
+        <div class="obj-card">
+          <div class="oc-hears">You'll hear</div>
+          <div class="oc-obj">A cutover would be too disruptive.</div>
+          <div class="oc-reopen-k">Reopen with</div>
+          <div class="oc-reopen">That's exactly why the blueprint is phased — assess before anything moves. What would it be worth to see your highest-risk sites mapped before a single change is made?</div>
+        </div>
+        <div class="obj-card">
+          <div class="oc-hears">You'll hear</div>
+          <div class="oc-obj">Why not just buy the software direct?</div>
+          <div class="oc-reopen-k">Reopen with</div>
+          <div class="oc-reopen">You could — then you own the backbone, the carriers, and the remediation. Who on your team wants to run a global network under the security platform, and at what cost?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut-light);margin-bottom:14px">The path forward</div>
+      <div class="foot-path"><span>Unify</span><span class="arr">→</span><span>Orchestrate</span><span class="arr">→</span><span>Monitor</span><span class="arr">→</span><span>Protect</span></div>
+    </div>
+    <div class="foot-meta">
+      Built on GTT's Tier 1 network · 170+ countries · 400+ PoPs · 140k+ secured locations<br>
+      HPE Networking Unified SASE — SD-Branch · SSE · ZTNA<br>
+      Services &amp; references: <a href="https://www.gtt.net/services/" target="_blank">gtt.net/services</a>
+    </div>
+  </div>
+  <div class="sources">
+    <div class="src-head">Sources & provenance</div>
+    <div class="src-sub">Every factual claim, figure, and link below traces to GTT or HPE source material. Items marked <b style="color:#b9a6f0">Solution Architecture</b> are strategic analysis built around that material — not retrieved from gtt.net — and should be reviewed by the claims owner before external use.</div>
+    <div class="src-grid">
+      <div class="src-col">
+        <h5>Architecture & principles <span class="badge badge-src">GTT / HPE source</span></h5>
+        <ul>
+          <li>Five design principles, reference architecture, migration phases, Unify→Orchestrate→Monitor→Protect — <b>GTT + HPE white paper, "Beyond Just SASE"</b> (uploaded)</li>
+          <li>HPE Networking Unified SASE — SD-Branch, SSE, ZTNA, AI device intelligence — white paper + <a href="https://www.gtt.net/services/secure-networking/sase-secure-connect/" target="_blank">gtt.net Secure Connect</a></li>
+        </ul>
+      </div>
+      <div class="src-col">
+        <h5>Services & platform <span class="badge badge-src">GTT.net</span></h5>
+        <ul>
+          <li>Connect / Secure / Simplify, EnvisionDX, 170+ countries · 400+ PoPs · 140k+ locations — <a href="https://www.gtt.net/" target="_blank">gtt.net</a></li>
+          <li>Secure Connect, Cloud Connect, Cloud Security, Voice, Professional Services — <a href="https://www.gtt.net/services/" target="_blank">gtt.net/services</a></li>
+        </ul>
+      </div>
+      <div class="src-col">
+        <h5>Proof points & figures <span class="badge badge-src">GTT.net case studies</span></h5>
+        <ul>
+          <li>Kiabi (431 sites), HMY Group (MPLS→SD-WAN, +22% cost) — <a href="https://www.gtt.net/resources/case-studies/" target="_blank">gtt.net case studies</a></li>
+          <li>Röchling (+50% bandwidth), Barry Callebaut (Gen-4 SD-WAN), Mitsubishi Electric — gtt.net case studies</li>
+          <li>Manufacturing = 22% of attacks; OT &amp; remote-access risk — <a href="https://www.gtt.net/resources/blog/manufacturings-cyber-problem-isnt-what-you-think/" target="_blank">gtt.net blog</a></li>
+        </ul>
+      </div>
+      <div class="src-col">
+        <h5>Scenarios & ICPs <span class="badge badge-orig">Solution Architecture</span></h5>
+        <ul>
+          <li><b>Customer scenarios</b> (1,200-location QSR; 40-plant / 15-country manufacturer) — illustrative composites, not specific accounts or gtt.net content</li>
+          <li><b>ICP firmographics</b> (size bands, revenue ranges, buying triggers, disqualifiers) — strategic qualification framework built to fit GTT's portfolio</li>
+          <li><b>Scenario outcome targets</b> (PCI scope reduction, zero-touch turn-up, MTTR) — directional design goals, not GTT-guaranteed results</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Internal sales enablement asset. Architecture and principles adapted from the GTT + HPE white paper "Beyond Just SASE." Customer scenarios (1,200-location QSR; 40-plant global manufacturer) are illustrative reference profiles, not specific accounts. Outcome figures describe directional value and design targets, not guaranteed results — size each opportunity against the customer's actual environment. Named references (Kiabi, HMY, Röchling, Barry Callebaut, Mitsubishi Electric) are published GTT case studies on gtt.net.
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.uc-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const uc=tab.dataset.uc;
+    document.querySelectorAll('.uc-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.uc-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('uc-'+uc).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
